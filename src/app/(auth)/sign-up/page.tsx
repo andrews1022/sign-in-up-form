@@ -1,5 +1,5 @@
-const SignOutPage = () => {
-  return <div className="w-full">SignOutPage</div>;
+const SignUpPage = () => {
+  return <div className="w-full">SignUpPage</div>;
 };
 
-export default SignOutPage;
+export default SignUpPage;
