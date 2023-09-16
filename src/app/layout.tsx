@@ -4,7 +4,7 @@ import Navbar from "@/components/Navbar";
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 
-import "./globals.css";
+import "@/styles/globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
