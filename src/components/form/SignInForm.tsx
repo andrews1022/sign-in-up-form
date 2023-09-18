@@ -73,7 +73,7 @@ const SignInForm = () => {
       {/* <GoogleSignInButton>Sign in with Google</GoogleSignInButton> */}
 
       <p className="text-center text-sm text-gray-600 mt-2">
-        If you don&apos;t have an account, please&nbsp;
+        If you don&apos;t have an account, please{" "}
         <Link className="text-blue-500 hover:underline" href="/sign-up">
           Sign up
         </Link>
