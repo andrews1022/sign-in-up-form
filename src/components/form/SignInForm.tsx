@@ -8,6 +8,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "../ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
 import { Input } from "../ui/input";
+import { SignInWithGoogleButton } from "../SignInWithGoogleButton";
 
 const FormSchema = z.object({
   // here is where you can specify client side validation requirements
@@ -70,7 +71,7 @@ const SignInForm = () => {
         or
       </div>
 
-      {/* <GoogleSignInButton>Sign in with Google</GoogleSignInButton> */}
+      <SignInWithGoogleButton>Sign in with Google</SignInWithGoogleButton>
 
       <p className="text-center text-sm text-gray-600 mt-2">
         If you don&apos;t have an account, please{" "}
