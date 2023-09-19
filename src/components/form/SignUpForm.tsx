@@ -2,7 +2,8 @@
 
 import { useForm } from "react-hook-form";
 import Link from "next/link";
-import * as z from "zod";
+import { useRouter } from "next/navigation";
+import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import { Button } from "../ui/button";
@@ -28,6 +29,8 @@ const FormSchema = z
   });
 
 const SignUpForm = () => {
+  const router = useRouter();
+
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -38,8 +41,24 @@ const SignUpForm = () => {
     }
   });
 
-  const onSubmit = (values: z.infer<typeof FormSchema>) => {
-    console.log(values);
+  const onSubmit = async (values: z.infer<typeof FormSchema>) => {
+    const res = await fetch("/api/user", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        username: values.username,
+        email: values.email,
+        password: values.password
+      })
+    });
+
+    if (res.ok) {
+      router.push("/sign-in");
+    } else {
+      console.log("Registration failed!");
+    }
   };
 
   return (
