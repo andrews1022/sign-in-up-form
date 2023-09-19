@@ -1,7 +1,9 @@
 "use client";
 
-import { useForm } from "react-hook-form";
+import { signIn } from "next-auth/react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
@@ -17,6 +19,8 @@ const FormSchema = z.object({
 });
 
 const SignInForm = () => {
+  const router = useRouter();
+
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -25,8 +29,28 @@ const SignInForm = () => {
     }
   });
 
-  const handleFormSubmit = (values: z.infer<typeof FormSchema>) => {
-    console.log(values);
+  const handleFormSubmit = async (values: z.infer<typeof FormSchema>) => {
+    const signInData = await signIn("credentials", {
+      email: values.email,
+      password: values.password,
+      redirect: false
+    });
+
+    // console.log("signInData: ", signInData);
+
+    // example of signing in with bad credentials:
+    // {
+    //   "error": "CredentialsSignin",
+    //   "status": 200,
+    //   "ok": true,
+    //   "url": null
+    // }
+
+    if (signInData?.error) {
+      console.log(signInData.error);
+    } else {
+      router.push("/admin");
+    }
   };
 
   return (

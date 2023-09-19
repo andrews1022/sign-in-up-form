@@ -41,7 +41,7 @@ const SignUpForm = () => {
     }
   });
 
-  const onSubmit = async (values: z.infer<typeof FormSchema>) => {
+  const handleFormSubmit = async (values: z.infer<typeof FormSchema>) => {
     const res = await fetch("/api/user", {
       method: "POST",
       headers: {
@@ -63,7 +63,7 @@ const SignUpForm = () => {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="w-full">
+      <form onSubmit={form.handleSubmit(handleFormSubmit)} className="w-full">
         <div className="space-y-2">
           <FormField
             control={form.control}
