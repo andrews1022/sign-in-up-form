@@ -67,14 +67,23 @@ export const POST = async (request: Request) => {
       }
     });
 
+    const { password: newPassword, ...rest } = newUser;
+
     return NextResponse.json(
       {
-        user: newUser,
+        user: rest, // send back everything in the object EXCEPT the password
         message: "User created successfully!"
       },
       {
         status: 201
       }
     );
-  } catch (error) {}
+  } catch (error) {
+    return NextResponse.json(
+      {
+        message: "Something went wrong!"
+      },
+      { status: 500 }
+    );
+  }
 };
