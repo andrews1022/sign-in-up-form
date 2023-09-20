@@ -10,6 +10,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "../ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
 import { Input } from "../ui/input";
+import { useToast } from "../ui/use-toast";
+
 import { SignInWithGoogleButton } from "../SignInWithGoogleButton";
 
 const FormSchema = z.object({
@@ -20,6 +22,7 @@ const FormSchema = z.object({
 
 const SignInForm = () => {
   const router = useRouter();
+  const { toast } = useToast();
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -36,18 +39,14 @@ const SignInForm = () => {
       redirect: false
     });
 
-    // console.log("signInData: ", signInData);
-
-    // example of signing in with bad credentials:
-    // {
-    //   "error": "CredentialsSignin",
-    //   "status": 200,
-    //   "ok": true,
-    //   "url": null
-    // }
-
     if (signInData?.error) {
-      console.log(signInData.error);
+      toast({
+        description: "Please check your email and/or password.",
+        title: "Uh oh! Something went wrong.",
+        variant: "destructive"
+      });
+
+      return false;
     } else {
       router.refresh();
       router.push("/admin");

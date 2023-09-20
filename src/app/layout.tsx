@@ -1,5 +1,7 @@
 import { Inter } from "next/font/google";
+
 import { Navbar } from "@/components/Navbar";
+import { Toaster } from "@/components/ui/toaster";
 
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
@@ -22,9 +24,12 @@ const RootLayout = ({ children }: RootLayoutProps) => {
     <html lang="en">
       <body className={inter.className}>
         <main className="h-screen flex flex-col justify-center items-center">
+          {/* @ts-expect-error Server Component */}
           <Navbar />
 
           {children}
+
+          <Toaster />
         </main>
       </body>
     </html>
