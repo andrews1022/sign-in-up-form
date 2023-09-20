@@ -26,7 +26,7 @@ export const options: AuthOptions = {
     async session({ session, token, user }) {
       // console.log("session session: ", session);
       // console.log("session token: ", token);
-      console.log("session user: ", user);
+      // console.log("session user: ", user);
 
       return {
         ...session, // default value
