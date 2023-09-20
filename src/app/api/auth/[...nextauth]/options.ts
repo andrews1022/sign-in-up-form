@@ -67,14 +67,16 @@ export const options: AuthOptions = {
 
         // check if the password doesn't match
         // remember we use bcrypt to encrypt the password
-        const passwordMatch = await compare(credentials?.password, existingUser.password);
+        if (existingUser.password) {
+          const passwordMatch = await compare(credentials?.password, existingUser.password);
 
-        if (!passwordMatch) {
-          return null;
+          if (!passwordMatch) {
+            return null;
+          }
         }
 
         return {
-          id: `${existingUser.id}`, // string expected, but id is a number
+          id: existingUser.id,
           username: existingUser.username,
           email: existingUser.email
         };

@@ -1,5 +1,6 @@
 import { Button } from "./ui/button";
 import type { ReactNode } from "react";
+import { signIn } from "next-auth/react";
 
 type SignInWithGoogleButtonProps = {
   children: ReactNode;
@@ -7,7 +8,7 @@ type SignInWithGoogleButtonProps = {
 
 const SignInWithGoogleButton = ({ children }: SignInWithGoogleButtonProps) => {
   const handleClick = () => {
-    console.log("login with google");
+    signIn("google", { callbackUrl: "/admin" });
   };
 
   return (

@@ -1,5 +1,4 @@
 import { options } from "@/app/api/auth/[...nextauth]/options";
-import { redirect } from "next/navigation";
 import { getServerSession } from "next-auth";
 
 const AdminPage = async () => {
@@ -9,7 +8,7 @@ const AdminPage = async () => {
     return (
       <div>
         <h1>Admin Page</h1>
-        <p>Welcome back - {session?.user.username}</p>
+        <p>Welcome back - {session?.user.username || session.user.name}</p>
       </div>
     );
   } else {
