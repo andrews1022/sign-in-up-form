@@ -1,4 +1,5 @@
 import CredentialsProvider from "next-auth/providers/credentials";
+import GoogleProvider from "next-auth/providers/google";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import type { AuthOptions } from "next-auth";
 
@@ -78,6 +79,10 @@ export const options: AuthOptions = {
           email: existingUser.email
         };
       }
+    }),
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID!,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET!
     })
   ],
   secret: process.env.NEXTAUTH_SECRET,
