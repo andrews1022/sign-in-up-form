@@ -7,6 +7,36 @@ import { compare } from "bcrypt";
 
 export const options: AuthOptions = {
   adapter: PrismaAdapter(prisma),
+  callbacks: {
+    async jwt({ token, user }) {
+      // console.log("jwt token: ", token);
+      // console.log("jwt user: ", user);
+
+      if (user) {
+        return {
+          ...token, // default value
+          user: {
+            username: user.username
+          }
+        };
+      }
+
+      return token;
+    },
+    async session({ session, token, user }) {
+      // console.log("session session: ", session);
+      // console.log("session token: ", token);
+      console.log("session user: ", user);
+
+      return {
+        ...session, // default value
+        user: {
+          ...session.user, // default value
+          username: token.username
+        }
+      };
+    }
+  },
   pages: {
     signIn: "/sign-in"
   },
